@@ -30,3 +30,20 @@ describe("/games posts", () => {
     expect(res.status).toBe(422);
   });
 });
+
+describe("/games get", () => {
+  it("Should return status code 200 on a good request", async () => {
+    const res = request(server).get("/games");
+    expect(res.status).toBe(200);
+  });
+
+  it("Should return json", async () => {
+    const res = request(server).get("/games");
+    expect(res.type).toBe("application.json");
+  });
+
+  it("Should return an array of games", async () => {
+    const res = request(server).get("/games");
+    expect(res.body).any(Array);
+  });
+});
