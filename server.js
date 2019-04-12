@@ -1,21 +1,17 @@
-const express = require("express");
-
-const server = express();
-
-server.use(express.json());
+const server = require("express").Router();
 
 const games = [
-  { title: "Pacman", genre: "Arcade", releaseYear: 1980 },
-  { title: "Warframe", genre: "Shooter", releaseYear: 2013 },
-  { title: "Path of Exile", genre: "Action RPG", releaseYear: 2013 }
+  { id: 1, title: "Pacman", genre: "Arcade", releaseYear: 1980 },
+  { id: 2, title: "Warframe", genre: "Shooter", releaseYear: 2013 },
+  { id: 3, title: "Path of Exile", genre: "Action RPG", releaseYear: 2013 }
 ];
 
-const getID = (id => () => id++)(0);
+const getID = (id => () => id++)(4);
 
 server.post("/games", async ({ body }, res) => {
   const { title, genre } = body;
   try {
-    if (title && genre) {
+    if (body && body.title && body.genre) {
       const verifyUniqueTitle = _verifyUniqueTitle(title);
       if (verifyUniqueTitle) {
         const id = getID();
