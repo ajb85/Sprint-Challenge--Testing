@@ -3,9 +3,9 @@ const server = require("./server.js");
 
 describe("/games posts", () => {
   const goodData = {
-    title: "Pacman",
+    title: "Pacman 2",
     genre: "Arcade",
-    releaseYear: 1980
+    releaseYear: 1983
   };
 
   it("should return 201 for valid requests", async () => {
@@ -28,6 +28,14 @@ describe("/games posts", () => {
       .post("/games")
       .send(badData);
     expect(res.status).toBe(422);
+  });
+
+  it("should return 405 for duplicate data", async () => {
+    const dupData = { title: "Pacman", genre: "Arcade", releaseYear: 1980 };
+    const res = await request(server)
+      .post("/games")
+      .send(dupData);
+    expect(res.status).toBe(405);
   });
 });
 
