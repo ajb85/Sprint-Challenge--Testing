@@ -7,24 +7,24 @@ describe("/games posts", () => {
     genre: "Arcade",
     releaseYear: 1980
   };
-  const badData = { title: "Pacman" };
 
   it("should return 201 for valid requests", async () => {
-    const res = request(server)
+    const res = await request(server)
       .post("/games")
       .send(goodData);
     expect(res.status).toBe(201);
   });
 
   it("should return json", async () => {
-    const res = request(server)
+    const res = await request(server)
       .post("/games")
       .send(goodData);
     expect(res.type).toBe("application/json");
   });
 
   it("should return 422 for valid requests", async () => {
-    const res = request(server)
+    const badData = { title: "Pacman" };
+    const res = await request(server)
       .post("/games")
       .send(badData);
     expect(res.status).toBe(422);
