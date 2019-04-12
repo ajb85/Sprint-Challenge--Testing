@@ -23,4 +23,13 @@ server.post("/games", async ({ body: { title, genre, releaseYear } }, res) => {
   }
 });
 
+server.get("/games", async (req, res) => {
+  try {
+    res.status(200).json({ games });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: err });
+  }
+});
+
 module.exports = server;
